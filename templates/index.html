@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Option Price Heatmaps</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <!-- Menu Bar -->
+    <div class="menu-bar">
+      <a href="https://www.emilwestling.com/index.html">About Me</a>
+      <a href="https://www.emilwestling.com/portfolio.html">Portfolio</a>
+      <a href="https://www.emilwestling.com/resume.pdf" target="_blank">Resume</a>
+    </div>
+
+    <div class="container">
+      <div
+        class="sidebar-toggle"
+        onclick="toggleSidebar()"
+        aria-label="Toggle Sidebar"
+        tabindex="0"
+      >
+        ☰
+      </div>
+
+      <div class="sidebar" id="sidebar">
+        <div class="sidebar-toggle" onclick="toggleSidebar()">☰</div>
+        <div class="sidebar-content">
+          <form id="input-form", method="POST">
+            <div class="input-group">
+              <label for="K">Strike Price (K)</label>
+              <input
+                type="range"
+                id="K"
+                name="K"
+                min="20"
+                max="200"
+                value="{{ K }}"
+                step="1"
+              />
+              <div class="value" id="K-value">100</div>
+            </div>
+            <div class="input-group">
+              <label for="r">Risk-free Rate (r)</label>
+              <input
+                type="range"
+                id="r"
+                name="r"
+                min="0"
+                max="0.30"
+                value="{{ r }}"
+                step="0.01"
+              />
+              <div class="value" id="r-value">0.05</div>
+            </div>
+            <div class="input-group">
+              <label for="sigma">Volatility (σ)</label>
+              <input
+                type="range"
+                id="sigma"
+                name="sigma"
+                min="0.01"
+                max="1"
+                value="{{ sigma }}"
+                step="0.01"
+              />
+              <div class="value" id="sigma-value">0.2</div>
+            </div>
+            <input type="submit" value="Generate Heatmaps" />
+          </form>
+        </div>
+      </div>
+      <div class="main-content">
+        <h1>Black-Scholes Pricing Model</h1>
+        <div class="heatmap-container">
+            {% if call_heatmap %}
+            <div class="heatmap">
+              <h2>Call Option</h2>
+              <img src="data:image/png;base64,{{ call_heatmap }}" alt="Call Option Heatmap" />
+            </div>
+            {% endif %}
+            {% if put_heatmap %}
+            <div class="heatmap">
+              <h2>Put Option</h2>
+              <img src="data:image/png;base64,{{ put_heatmap }}" alt="Put Option Heatmap" />
+            </div>
+            {% endif %}
+
+      </div>
+    </div>
+    <script>
+        // Toggle sidebar visibility
+        function toggleSidebar() {
+          document.getElementById("sidebar").classList.toggle("collapsed");
+        }
+      
+        // Update the displayed value for sliders
+        document.querySelectorAll('input[type="range"]').forEach((input) => {
+          // Initialize value display with current slider value
+          const valueDisplay = document.getElementById(input.id + "-value");
+          if (valueDisplay) {
+            valueDisplay.textContent = input.value;
+          }
+          
+          input.addEventListener("input", function () {
+            document.getElementById(this.id + "-value").textContent = this.value;
+          });
+        });
+        
+        // Ensure the slider values are maintained after form submission
+        function initializeSliderValues() {
+          document.querySelectorAll('input[type="range"]').forEach((input) => {
+            const valueDisplay = document.getElementById(input.id + "-value");
+            if (valueDisplay) {
+              valueDisplay.textContent = input.value;
+            }
+          });
+        }
+        
+        // Call the function to initialize values when the page loads
+        window.onload = initializeSliderValues;
+      </script>      
+  </body>
+</html>
