@@ -22,10 +22,6 @@ def index():
     # Generate the heatmaps
     call_img_base64 = heatmap_gen(K, r, sigma, 'call')
     put_img_base64 = heatmap_gen(K, r, sigma, 'put')
-    # Save plots to base64
-
-    call_img_base64 = heatmap_gen(K, r, sigma, 'call')
-    put_img_base64 = heatmap_gen(K, r, sigma, 'put')
 
     return render_template('index.html',
                            call_heatmap=call_img_base64,
