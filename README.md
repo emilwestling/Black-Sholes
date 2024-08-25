@@ -55,7 +55,7 @@ The application will start on http://127.0.0.1:5000/. You can access it from you
 
 ## Usage
 
-- Visit the web application at https://black-scholes-heatmap-7785d38551b8.herokuapp.com/ (replace with your actual URL).
+- Visit the web application at https://black-scholes-heatmap-7785d38551b8.herokuapp.com.
 - Use the sliders to adjust the Strike Price (K), Risk-free Rate (r), and Volatility (σ).
 - Click "Generate Heatmaps" to see the updated heatmaps for the European call and put options.
 
