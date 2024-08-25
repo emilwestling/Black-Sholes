@@ -1,6 +1,8 @@
 from src.Blacksholes import heatmap_gen
 from flask import Flask, render_template, request
 import matplotlib
+import os
+
 matplotlib.use('Agg')
 
 app = Flask(__name__, template_folder='../templates',
