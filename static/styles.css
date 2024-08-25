@@ -135,6 +135,10 @@ input[type="submit"]:focus {
     height: auto;
 }
 
+.link {
+    color: #64b5f6
+}
+
 .menu-bar {
     background-color: #201d1d; /* Dark background for the menu */
     padding: 10px 0px;
